@@ -12,27 +12,19 @@ class Rotor {
 		for (int i = 0; i< 26; i++){
 			cipher[i] = toIndex(s[i]);
 		}
-		s = notches.trim().replace(" and ", "").toCharArray();
-		if (s.length == 2){
-			return new Rotor(cipher, toIndex(s[0]), toIndex(s[1]));
-		} else {
-			return new Rotor(cipher, toIndex(s[0]));
-		}
-		
+        s = notches.trim().toCharArray();
+		// s = notches.trim().replace(" and ", "").toCharArray();
+		return new Rotor(cipher, toIndex(s[0]));
+
 	}
-	public Rotor(int[] c, int notch1, int notch2) {
-		this.notch1 = notch1;
-		this.notch2 = notch2;
-		cipher = c;
-		createBCipher();
-	}
-	public Rotor(int[] c, int notch1) {
-		this.notch1 = notch1;
+
+	public Rotor(int[] c, int notch) {
+		this.notch = notch;
 		cipher = c;
 		createBCipher();
 	}
 	public Rotor(){
-		
+
 	}
 
 	private void createBCipher() {
@@ -77,7 +69,7 @@ class Rotor {
     /** Returns true iff I am positioned to allow the rotor to my left
      *  to advance. */
     boolean atNotch() {
-        return (position == notch1 || position == notch2);
+        return (position == notch);
     }
 
     /** Advance me one position. */
@@ -90,7 +82,6 @@ class Rotor {
     private int position;
     private int[] cipher = new int[26];
     private int[] bcipher = new int[26];
-    private int notch1 = -1;
-    private int notch2 = -1;
+    private int notch = -1;
 
 }
